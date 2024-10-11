@@ -12,6 +12,4 @@
 
 #
 
-
-
 ![Ancienne page forum](https://jvflux.fr/images/2/2e/forum_accueil_jeuxvideo.com_blabla.png)
