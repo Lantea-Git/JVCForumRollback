@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         JVCForumRollback
 // @namespace    https://github.com/Roadou
-// @version      8.6.0
+// @version      8.6.2
 // @description  Ancienne page des forums JVC
 // @author       IceFairy, Atlantis
 // @match        *://www.jeuxvideo.com/forums.htm
@@ -439,7 +439,7 @@ function main() {
 
 
     //3)Ancien_HTML_____________
-    const rowLayoutBlabla = localStorage.getItem("jvcrollback-topblabla") === "row old-layout" ? "row old-layout" : "row new-layout";
+    const rowLayoutBlabla = localStorage.getItem("jvcrollback-topblabla") === "true" ? "old-layout" : "";
 
     const oldHtmlCode =
     `
@@ -460,7 +460,7 @@ function main() {
             <div class="titre-head-bloc">
               <h2 class="titre-bloc">jeuxvideo.com</h2>
             </div>
-            <div class="${rowLayoutBlabla}">
+            <div class="row roll-layout ${rowLayoutBlabla}">
               <div class="col-lg-6">
                 <div class="forum-section">
                   <div class="f-alaune">
@@ -948,56 +948,41 @@ function main() {
     //BANDEAU_FIN
     jvPage.appendChild(jvFooter);
 
-    // SetTimeout === 0 => PERMET de différer au 2ND CYCLE de rendu les elements NON VISUELS.
-    //5)Apres_coup__MAJ_Layout_Blabla_2020__________
+    //Timeout === 0 => Differe au 2ND CYCLE de rendu les elements NON VISUELS.
     setTimeout(() => {
-        document.querySelector("#switch-layout-blabla").addEventListener("click", function() {
-            const currentLayout = document.querySelector(".row.old-layout, .row.new-layout");
-            const switchLayout = (currentLayout.className === "row new-layout") ? "row old-layout" : "row new-layout";
-            currentLayout.className = switchLayout;
-            localStorage.setItem("jvcrollback-topblabla", switchLayout);
+
+        //Listener SWITCH MODE_Layout_Blabla_2020
+        document.querySelector("#switch-layout-blabla").addEventListener("click", () => {
+            const currentLayout = document.querySelector(".row.roll-layout");
+            const newLayout = currentLayout.classList.toggle("old-layout");
+            localStorage.setItem("jvcrollback-topblabla", newLayout);
         });
-    }, 0);
 
-    //7)Apres_coup__MAJ_LIENS_TOP_JEU_____________
-    setTimeout(() => {
-        getUpdateTopGames(); //Actualiste_Liens_Top_Jeux
-        //showFavProfil(); //Liens Favoris (Disable)
-    }, 0);
-
-
-    //https://jvflux.fr/Fonctionnement_technique_de_Jeuxvideo.com#JvCare
-    function jvCare(classe) {
-        let base16 = '0A12B34C56D78E9F', lien = '' , s = classe.split(' ')[1];
-        for (let i = 0; i < s.length; i += 2) {
-            lien += String.fromCharCode(base16.indexOf(s.at(i)) * 16 + base16.indexOf(s.at(i + 1)));
-        }
-        return lien;
-    }
-
-    //UPDATE LIENS TOP FOFO
-    function getUpdateTopGames() {
-        //RECUP INFO ".card__link"
-        //HREF => Liens formates via JS de JVC || Sinon Script trop rapide => fonction jvCare)
+        // UPDATE LIENS TOP FOFO // Liens Direct || Sinon Script trop rapide => fonction jvCare)
         let links = [...jeuxLinks].map(liens => liens.getAttribute('href') || jvCare(liens.className));
         //MINIATURE LIEN + TOP FORUM LIENS
         document.querySelector('.col-lg-6 .f-alaune a').href = links[0];
         document.querySelectorAll('.lh-sm.card-forum-link').forEach((ele, index) => {
             ele.href = links[index];
         });
-    }
 
+        // https://jvflux.fr/Fonctionnement_technique_de_Jeuxvideo.com#JvCare
+        function jvCare(classe) {
+            let base16 = '0A12B34C56D78E9F', lien = '' , s = classe.split(' ')[1];
+            for (let i = 0; i < s.length; i += 2) {
+                lien += String.fromCharCode(base16.indexOf(s.at(i)) * 16 + base16.indexOf(s.at(i + 1)));
+            }
+            return lien;
+        }
 
-    /* NON UTILISE (Futur) PERMETTRA DAVOIR LES FAVORIS (SI jabandonne lidee des images).
-    function showFavProfil() {
+        /* NON UTILISE (Futur) PERMETTRA DAVOIR LES FAVORIS (SI jabandonne lidee des images).
         let pseudoUser = document.querySelector('.headerAccount__pseudo').textContent.toLowerCase();
         if (pseudoUser !== "connexion") {
             document.querySelector('.col-lg-6 .f-alaune a').href = `/profil/${pseudoUser}?mode=favoris`;
         }
-    }
-    */
+        */
+    }, 0);
 }
-
 
 
 /* MUTATION OBSERVER GLOBAL POUR EVITER LE FOUC / SI HTML PRET => main(); */
