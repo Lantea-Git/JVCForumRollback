@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         JVCForumRollback
 // @namespace    https://github.com/Roadou
-// @version      8.6.2
+// @version      8.6.3
 // @description  Ancienne page des forums JVC
 // @author       IceFairy, Atlantis
 // @match        *://www.jeuxvideo.com/forums.htm
@@ -439,7 +439,7 @@ function main() {
 
 
     //3)Ancien_HTML_____________
-    const rowLayoutBlabla = localStorage.getItem("jvcrollback-topblabla") === "true" ? "old-layout" : "";
+    const oldLayoutClass = localStorage.getItem("jvcrollback-topblabla") === "true" ? "old-layout" : "";
 
     const oldHtmlCode =
     `
@@ -460,7 +460,7 @@ function main() {
             <div class="titre-head-bloc">
               <h2 class="titre-bloc">jeuxvideo.com</h2>
             </div>
-            <div class="row roll-layout ${rowLayoutBlabla}">
+            <div class="row roll-layout ${oldLayoutClass}">
               <div class="col-lg-6">
                 <div class="forum-section">
                   <div class="f-alaune">
@@ -954,17 +954,15 @@ function main() {
         //Listener SWITCH MODE_Layout_Blabla_2020
         document.querySelector("#switch-layout-blabla").addEventListener("click", () => {
             const currentLayout = document.querySelector(".row.roll-layout");
-            const newLayout = currentLayout.classList.toggle("old-layout");
-            localStorage.setItem("jvcrollback-topblabla", newLayout);
+            const saveLayout = currentLayout.classList.toggle("old-layout");
+            localStorage.setItem("jvcrollback-topblabla", saveLayout);
         });
 
         // UPDATE LIENS TOP FOFO // Liens Direct || Sinon Script trop rapide => fonction jvCare)
-        let links = [...jeuxLinks].map(liens => liens.getAttribute('href') || jvCare(liens.className));
+        const jeuxLinksHref = [...jeuxLinks].map(links => links.getAttribute('href') || jvCare(links.className));
         //MINIATURE LIEN + TOP FORUM LIENS
-        document.querySelector('.col-lg-6 .f-alaune a').href = links[0];
-        document.querySelectorAll('.lh-sm.card-forum-link').forEach((ele, index) => {
-            ele.href = links[index];
-        });
+        document.querySelector('.col-lg-6 .f-alaune a').href = jeuxLinksHref[0];
+        document.querySelectorAll('.lh-sm.card-forum-link').forEach((elem, index) => { elem.href = jeuxLinksHref[index]; });
 
         // https://jvflux.fr/Fonctionnement_technique_de_Jeuxvideo.com#JvCare
         function jvCare(classe) {
