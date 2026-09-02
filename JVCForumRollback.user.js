@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         JVCForumRollback
 // @namespace    https://github.com/Roadou
-// @version      8.6.5
+// @version      8.6.7
 // @description  Ancienne page des forums JVC
 // @author       IceFairy, Atlantis
 // @match        *://www.jeuxvideo.com/forums.htm
@@ -20,16 +20,15 @@ function main() {
 
     const jvPage = document.getElementById("jv-page");
 
-    const jeuxLinksNodes = document.querySelectorAll('.card--game > .card__body .card__link');
+    const jeuxLinksNodes = document.querySelectorAll('.card--game .card__link');
+    const jaquetteTopNode = document.querySelector('.card__imgGame > img');
 
-    const jaquetteTopJeu = document.querySelector('.card__imgGame > img');
-
-    let jaquetteTopJeuImg = (jaquetteTopJeu.dataset.src || jaquetteTopJeu.src).replace('s-xs/', 's-md/');
+    let jaquetteTopImg = (jaquetteTopNode.dataset.src || jaquetteTopNode.src).replace('s-xs/', 's-md/');
     //Exceptions_Fiches_Jeux(Va chercher une autre image SI le ratio est trop different. (Car pas beau))
     //FOOTBALL_MANAGER_26
-    if (jaquetteTopJeuImg === 'https://image.jeuxvideo.com/medias-md/175793/1757925437-1267-jaquette-avant.jpg') jaquetteTopJeuImg = 'https://image.jeuxvideo.com/medias-md/175760/1757595772-1987-capture-d-ecran.jpg'
+    if (jaquetteTopImg === 'https://image.jeuxvideo.com/medias-md/175793/1757925437-1267-jaquette-avant.jpg') jaquetteTopImg = 'https://image.jeuxvideo.com/medias-md/175760/1757595772-1987-capture-d-ecran.jpg'
     //GTA_VI
-    if (jaquetteTopJeuImg === 'https://image.jeuxvideo.com/medias-md/178179/1781789125-5577-jaquette-avant.jpg') jaquetteTopJeuImg = 'https://image.jeuxvideo.com/medias-md/172786/1727863534-4176-capture-d-ecran.jpg';
+    if (jaquetteTopImg === 'https://image.jeuxvideo.com/medias-md/178179/1781789125-5577-jaquette-avant.jpg') jaquetteTopImg = 'https://image.jeuxvideo.com/medias-md/172786/1727863534-4176-capture-d-ecran.jpg';
 
 
     //Recuperer_le_bloc_de_fin___
@@ -460,7 +459,7 @@ function main() {
                 <div class="forum-section">
                   <div id="top_forumCover" class="f-alaune">
                       <a href="#">
-                        <img src=${jaquetteTopJeuImg}>
+                        <img src=${jaquetteTopImg}>
                         <!-- 
                         <img src="https://image.jeuxvideo.com/medias-md/157322/1573218277-2396-card.png" style="height: 100%; object-fit: cover; filter: grayscale(25%) brightness(107%);">
                         <img src="https://static.jvc.gg/unversioned/img/default-og.png" style="height: 100%; object-fit: cover; filter: grayscale(25%) brightness(107%);">
