@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         JVCForumRollback
 // @namespace    https://github.com/Roadou
-// @version      8.6.4
+// @version      8.6.5
 // @description  Ancienne page des forums JVC
 // @author       IceFairy, Atlantis
 // @match        *://www.jeuxvideo.com/forums.htm
@@ -20,7 +20,7 @@ function main() {
 
     const jvPage = document.getElementById("jv-page");
 
-    const jeuxLinks = document.querySelectorAll('.card--game > .card__body .card__link');
+    const jeuxLinksNodes = document.querySelectorAll('.card--game > .card__body .card__link');
 
     const jaquetteTopJeu = document.querySelector('.card__imgGame > img');
 
@@ -458,14 +458,14 @@ function main() {
             <div class="row roll-layout ${oldLayoutClass}">
               <div class="col-lg-6">
                 <div class="forum-section">
-                  <div class="f-alaune">
+                  <div id="top_forumCover" class="f-alaune">
                       <a href="#">
                         <img src=${jaquetteTopJeuImg}>
                         <!-- 
                         <img src="https://image.jeuxvideo.com/medias-md/157322/1573218277-2396-card.png" style="height: 100%; object-fit: cover; filter: grayscale(25%) brightness(107%);">
                         <img src="https://static.jvc.gg/unversioned/img/default-og.png" style="height: 100%; object-fit: cover; filter: grayscale(25%) brightness(107%);">
                         -->
-                      <p class="nom-forum">${jeuxLinks[0].title}</p>
+                      <p class="nom-forum">${jeuxLinksNodes[0].title}</p>
                       <!-- 
                       <p class="nom-forum">Forums Favoris</p>
                       -->
@@ -897,25 +897,25 @@ function main() {
           </div>
         </div>
         <div class="col-right" id="forum-right-col">
-          <div class="card card-forum-margin">
+          <div id="top_forumList" class="card card-forum-margin">
             <div class="card-forum-title card-header">Top Forums</div>
             <div class="card-body p-2">
               <ol class="fw-bold mb-0">
-                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinks[0].title}</a></li>
-                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinks[1].title}</a></li>
-                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinks[2].title}</a></li>
-                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinks[3].title}</a></li>
-                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinks[4].title}</a></li>
-                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinks[5].title}</a></li>
-                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinks[6].title}</a></li>
-                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinks[7].title}</a></li>
-                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinks[8].title}</a></li>
-                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinks[9].title}</a></li>
-                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinks[10].title}</a></li>
-                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinks[11].title}</a></li>
-                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinks[12].title}</a></li>
-                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinks[13].title}</a></li>
-                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinks[14].title}</a></li>
+                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinksNodes[0].title}</a></li>
+                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinksNodes[1].title}</a></li>
+                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinksNodes[2].title}</a></li>
+                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinksNodes[3].title}</a></li>
+                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinksNodes[4].title}</a></li>
+                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinksNodes[5].title}</a></li>
+                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinksNodes[6].title}</a></li>
+                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinksNodes[7].title}</a></li>
+                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinksNodes[8].title}</a></li>
+                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinksNodes[9].title}</a></li>
+                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinksNodes[10].title}</a></li>
+                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinksNodes[11].title}</a></li>
+                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinksNodes[12].title}</a></li>
+                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinksNodes[13].title}</a></li>
+                <li><a class="lh-sm card-forum-link" href="#">${jeuxLinksNodes[14].title}</a></li>
               </ol>
             </div>
           </div>
@@ -954,10 +954,12 @@ function main() {
         });
 
         // UPDATE LIENS TOP FOFO // Liens Direct || Sinon Script trop rapide => fonction jvCare)
-        const jeuxLinksHref = [...jeuxLinks].map(links => links.getAttribute('href') || jvCare(links.className));
+        const jeuxLinks = [...jeuxLinksNodes].map(links => links.getAttribute('href') || jvCare(links.className));
         //MINIATURE LIEN + TOP FORUM LIENS
-        document.querySelector('.col-lg-6 .f-alaune a').href = jeuxLinksHref[0];
-        document.querySelectorAll('.lh-sm.card-forum-link').forEach((elem, index) => { elem.href = jeuxLinksHref[index]; });
+        document.querySelector('#top_forumCover a').href = jeuxLinks[0];
+        document.querySelectorAll('#top_forumList .card-forum-link').forEach((elem, index) => {
+            elem.href = jeuxLinks[index];
+        });
 
         // https://jvflux.fr/Fonctionnement_technique_de_Jeuxvideo.com#JvCare
         function jvCare(classe) {
