@@ -12,9 +12,11 @@
 
 <a href="https://www.tampermonkey.net/index.php#download">TamperMonkey</a> (PC / [Firefox Android](https://play.google.com/store/apps/details?id=org.mozilla.firefox) / [Edge Android](https://play.google.com/store/apps/details?id=com.microsoft.emmx) )
 
-<a href="https://violentmonkey.github.io/#installation"><img src="https://violentmonkey.github.io/_astro/vm.C4h557K-.png" alt="ViolentMonkey" width="20"/> ViolentMonkey</a> (PC / [Firefox Android](https://play.google.com/store/apps/details?id=org.mozilla.firefox) / [Edge Android](https://play.google.com/store/apps/details?id=com.microsoft.emmx) ) **MV2**
+<a href="https://violentmonkey.github.io/#installation"><img src="https://violentmonkey.github.io/_astro/vm.C4h557K-.png" alt="ViolentMonkey" width="20"/> ViolentMonkey</a> (PC / [Firefox Android](https://play.google.com/store/apps/details?id=org.mozilla.firefox) / [Edge Android](https://play.google.com/store/apps/details?id=com.microsoft.emmx) )   
 
-<a href="https://apps.apple.com/fr/app/userscripts/id1463298887"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b4/21/66/b42166ec-dd28-21ef-b6a1-dc75715c3452/AppIcon-0-0-85-220-0-4-0-2x.png/48x0w.webp" alt="userscripts" width="20"/> Userscripts</a>  (Safari IOS)
+<a href="https://addons.mozilla.org/fr/firefox/addon/greasemonkey/"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fc/Greasemonkey.svg/250px-Greasemonkey.svg.png?utm_source=fr.wikipedia.org&utm_campaign=index&utm_content=thumbnail" alt="ViolentMonkey" width="19"/> GreasyMonkey</a> (PC Firefox) **MV2**
+
+<a href="https://apps.apple.com/fr/app/userscripts/id1463298887"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b4/21/66/b42166ec-dd28-21ef-b6a1-dc75715c3452/AppIcon-0-0-85-220-0-4-0-2x.png/48x0w.webp" alt="userscripts" width="20"/> Userscripts</a>  ( Safari IOS [Tuto](https://www.jeuxvideo.com/forums/42-51-69129471-1-0-1-0-0.htm) )
 
 #
 
